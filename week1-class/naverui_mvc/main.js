@@ -1,4 +1,5 @@
 var JSONdata;
+var index = 0;
 
 document.addEventListener("DOMContentLoaded", function(evt){
     //템플릿 가져오기 실행
@@ -22,7 +23,7 @@ function getJSONData(){
 //		console.log(JSONdata)
 		//메인 함수 실행
 		main();
-		setDefaultContent();
+//		setDefaultContent();
 	});
 	oReq.open("GET", "http://127.0.0.1:8000/week1-class/naverui_mvc/data/newslist.json");
 	oReq.send();
@@ -39,8 +40,12 @@ function main(){
 	//nav > ul에 텍스트 리스트 업
 	setDefaultNav();
 	//JSONdata 1번째값 content에 리스트 업
-	setDefaultContent(0);
+	setDefaultContent(index);
+	
+	//발생이벤트 정의
     sideNavClickEvent();
+	pageNavClickEvent();
+	closeButtonClickEvent();
 }
 
 
@@ -61,7 +66,7 @@ function setDefaultNav(){
 
 function setDefaultContent(index){
 	var tempObj = JSONdata[index];
-	console.log(index, tempObj);
+
 	//content 클래스으 안의 HTML을 스트링으로 받아온다.
 	//스트링에서 replace를 사용하여 템플릿 적용을 한다.
 	var base = document.querySelector(".content")
@@ -72,11 +77,11 @@ function setDefaultContent(index){
 	articlesHTML = '';
 	articles = tempObj.newslist;
 	for (var i=0; i < articles.length; i++){
-		articlesHTML += '<li>'+articles[i]+'/<li>';
+		articlesHTML += '<li>'+articles[i]+'</li>';
 	}
 	baseHTML = baseHTML.replace("{newsList}",articlesHTML);
 	base.innerHTML = baseHTML;
-	console.log(baseHTML);
+
 }
 
 
@@ -85,6 +90,7 @@ function sideNavClickEvent(){
 	for (var i=0; i < sideNavItem.length; i++){
 		sideNavItem[i].addEventListener("click", function(evt){
 			index = [].indexOf.call(this.parentNode.children, this);
+			//유사코드 배열이 아닌 자료형에서 배열의 함수를 사용 하는 방법
 			showArticleBox(index);
 		});
 	};
@@ -94,9 +100,15 @@ function pageNavClickEvent(){
 	var leftbtn = document.querySelector('.left');
 	var rightbtn = document.querySelector('.right');
 	leftbtn.addEventListener("click", function(evt){
-		//s
-		index 
-		showArticleBox(index);
+		index--;
+		if(index < 1) index = JSONdata.length;
+//		index = index%JSONdata.length +1;
+		showArticleBox(index-1);
+	});
+	rightbtn.addEventListener("click", function(evt){
+		index++;
+		if(index > JSONdata.length) index = 1; //안좋은 코드, 하드코딩
+		showArticleBox(index-1);
 	});
 	
 	
@@ -109,12 +121,25 @@ function showArticleBox(index){
 			setEmptyTemplate();
 			
 			var base = document.querySelector(".content");		
-			setDefaultContent(index-1);
+			setDefaultContent(index);
 }
 
+function closeButtonClickEvent(){
+	var closebtn = document.querySelector(".content");
+	closebtn.addEventListener("click",function(evt){
+		if(evt.target.tagName !== "BUTTON" && evt.target.tagName !== "A") return false;
+		//해당하는 JSONdata 자료 날리기
+		JSONdata.splice(index,1);
+		//Nav메뉴 다시 그리기
+		showNavList();
+		//Content내용 다시 그리기
+		showArticleBox(index);
+	})
 
-	
+}
 
-  
-
-
+function showNavList(){
+	var base = document.querySelector("nav>ul");
+	base.innerHTML = "";
+	setDefaultNav();
+}
