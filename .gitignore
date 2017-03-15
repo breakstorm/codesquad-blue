@@ -1,6 +1,10 @@
 # Study data #
 #############
-*.pdf
+*.pdf 
+*.ppt
+*.pptx
+*.xls
+*.xlsx
 
 # OS generated files #
 ######################
