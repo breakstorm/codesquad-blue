@@ -1,0 +1,8 @@
+# Study data #
+#############
+*.pdf
+
+# OS generated files #
+######################
+Icon?
+Thumbs.db
