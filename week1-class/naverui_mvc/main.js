@@ -20,6 +20,7 @@ function setEmptyTemplate(){
 function getJSONData(){
 	var oReq = new XMLHttpRequest();
 	oReq.addEventListener("load", function(evt){
+		debugger;
 		var tempObj = evt.target.responseText;
 		JSONdata = JSON.parse(tempObj);	
 //		console.log(JSONdata)
@@ -27,7 +28,7 @@ function getJSONData(){
 		main();
 //		setDefaultContent();
 	});
-	oReq.open("GET", "/data/newslist.json");
+	oReq.open("GET", "./data/newslist.json");
 	oReq.send();
 };
 
