@@ -29,3 +29,13 @@ var myHealth3 = new Health("swim", 51100);
 myHealth3.showHealth();
 var myHealth4 = new Health("wedding", 5001230);
 myHealth4.showHealth();
+
+
+var workObj = {
+	showWork: function(){
+		console.log("오늘은" + this.lastTime + "까지" + this.name + "운동을 하셨네요");
+	}
+}
+var myHealth1 = Object.create(workObj);
+//myHealth.name = "달리기";
+//myHealth.lastTime = "1123:2222";
