@@ -5,9 +5,7 @@ document.addEventListener("DOMContentLoaded", function(evt){
     //템플릿 가져오기 실행
     setEmptyTemplate();
 	//JSON데이터파일 가져오기
-	debugger;
 	getJSONData();
-
 });
 
 function setEmptyTemplate(){
@@ -27,7 +25,7 @@ function getJSONData(){
 		main();
 //		setDefaultContent();
 	});
-	oReq.open("GET", "/data/newslist.json");
+	oReq.open("GET", "./data/newslist.json");
 	oReq.send();
 };
 
