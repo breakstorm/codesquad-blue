@@ -7,6 +7,10 @@
  *이벤트를 언제 선언해야 하는지 잘 모르겠음.
  */
 
+ // 크롱 개선사항 
+ // 1. 데이터모델 부분은 직접 접근하지 않고 함수를 호출하여 받아오기 
+ // 2. 함수의 재사용성을 높이기 위해 개선. (관계는 내부에서 부르고 외부에서 함수가 시행되는 로직)
+ // 3. 이벤트 함수들은 모아서 실행을 하지 말고. 초기화 단계에서 내부에서 실행할 수 있도록 한다.
 var headerObj = {
 	leftrightButtonEvent: function(){
 		//해당 부분 셀렉트
@@ -107,14 +111,26 @@ var articleObj = {
 
 		//해당 부분 셀렉트
 		//해당 부분 HTML 코드 초기화
+		//읽어올수 있는 신문기사 존재하는지 확인하기
 		//템플릿 불러오기
 		//JSONData 으로 부터 데이터 읽기
+		//JSONData[currentIndex]가 subscription="Y" 데이터만 읽기 아닐시 currentIndex 다시 부르기
+		// -아닐경우 currentIndex++ 하고서 전체의 데이터수를 넘는지 확인하기
 		//JSONData 수만큼 반복문으로 HTML코드 생성하기
 		//셀렉트한 변수에 생성한 HTML 코드 삽입
 		debugger;
 		var contentArticle = document.querySelector(".content");
 		contentArticle.innerHTML = "";
+		//구독하는 데이터가 있는지 확인
+		if(!dataObj.getSubscriptionCount()) return false;
+
 		this.loadArticleTemplate();
+		if(dataObj.JSONData[dataObj.currentIndex].subscription === "N"){
+			dataObj.currentIndex++;
+			var length = dataObj.JSONData.length;
+			if(dataObj.currentIndex >= length) dataObj.currentIndex = 0
+			this.readArticleData();
+		}
 		var tempArticle = dataObj.JSONData[dataObj.currentIndex];
 		var tempHTML = contentArticle.innerHTML;
 		tempHTML = tempHTML.replace("{title}",tempArticle.title);
