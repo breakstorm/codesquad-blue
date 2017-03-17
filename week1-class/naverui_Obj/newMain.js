@@ -4,6 +4,7 @@
  *이벤트 기능들은 만들어지면 사용할 수 잇는것이 아니라, 함수를 사용해야 한다.
  *프로그램 개선과정을 글로 정리해서 올리기
  *매번 이벤트가 끝날때 마다 모든 이벤트들을 다시 호출을 하는것이 성능에 얼마나 영향이 있을까?
+ *이벤트를 언제 선언해야 하는지 잘 모르겠음.
  */
 
 var headerObj = {
@@ -43,7 +44,8 @@ var headerObj = {
 				}
 				articleObj.readArticleData()
 			})
-			utilObj.eventList()
+			//다시 선언할 필요 없음.
+			// utilObj.eventList()
 	}
 	// loadHeaderTemplate: function(){
 
@@ -79,8 +81,19 @@ var leftNavObj = {
 		//for문을 돌면서 이벤트리스너 선언
 		//이벤트 발생시 readArticleData 실행
 		//이벤트 발생시 해당 li bold 처리 HTML 코드 삽입
+		var leftNav = document.querySelector(".mainArea > nav > ul");
+		// *구독중인 데이터의 갯수 필요
+		var length = leftNav.children.length;
+		for(var i = 0; i < length; i++){
+			leftNav.children[i].addEventListener("click",function(evt){
+				debugger;
+				//해당 i순번을 dataObj.currentIndex 입력
+				dataObj.currentIndex = [].indexOf.call(this.parentNode.children, this);
+				articleObj.readArticleData()
+			})
+		}
 
-		utilObj.eventList()
+		// utilObj.eventList()
 	}
 	// loadLeftNavTemplate: function(){
 
@@ -118,6 +131,15 @@ var articleObj = {
 		//JSONData 해당하는 부분 subscription N 표시
 		//leftNavObj.readNavData() 실행
 		//articleObj.readArticleData() 실행
+		var content = document.querySelector(".content");
+		content.addEventListener("click", function(evt){
+			debugger;
+			if(evt.target.tagName ==="BUTTON" || evt.target.tagName ==="A"){
+				dataObj.JSONData[dataObj.currentIndex].subscription = "N";
+				leftNavObj.readNavData();
+				articleObj.readArticleData()
+			}
+		})
 	},
 	loadArticleTemplate: function(){
 		//aJax.addEventListener("load")를 통하여 실행
@@ -205,6 +227,8 @@ var utilObj = {
 		  	//테스트완료 3.16 20:22
 		  	articleObj.readArticleData();
 		  	//테스트완료 3.16 21:13
+		  	//이벤트 정의하기
+			utilObj.eventList()
 		})
 		oReq.open("GET", url);
 		oReq.send();
@@ -213,6 +237,7 @@ var utilObj = {
 	eventList: function(){
 		headerObj.leftrightButtonEvent();
 		leftNavObj.clickNavDataEvent();
+		articleObj.closeArticleDataEvent();
 	}
 }
 
@@ -226,8 +251,5 @@ document.addEventListener("DOMContentLoaded", function(evt){
 	dataObj.ajaxUrl = "./data/newslist.json";
 	dataObj.readAjaxData(dataObj.ajaxUrl);
 	
-	//이벤트 정의하기
-	utilObj.eventList()
 	
-
 });
