@@ -16,6 +16,9 @@
      ### closure 
      ### scope 
  
+   ## 3.16(목) 
+     ### object 설계 
+	 ### naverUI 스켈레토 코드 작성
 ---
 
 # 추가 교육 내용 정리
@@ -27,10 +30,10 @@
  
  - closure 발생케이스 : 
 
-'''
+```javascript
  var list = document.querySelectorAll('li'); var show = document.querySelector('.show');
  	for(var i = 0; i < list.length; i++) { list[i].addEventListener('click', function() {
 		show.innerText = i + 1 + '                       '; })
 	}
- '''
+ ```
  
