@@ -12,8 +12,8 @@
     <div class="wrap">
     	<header>
     		<ul>
-    			<li>전체언론사</li>
-    			<li>my뉴스</li>
+    			<li id="headTotal">전체언론사</li>
+    			<li id="headMine">my뉴스</li>
     		</ul>
     		<div class="btn">
     			<div class="left"><a href="#"><</a></div>
@@ -21,8 +21,20 @@
     		</div>
     	</header>
     	<section class="mainArea">
-        	
+        	<nav>
+                    <ul>
+                    </ul>
+                </nav>
+            <section class="content">
+            </section>
     	</section>
+        <aside>
+            <section class="newsCompany">
+                <ul>
+                    
+                </ul>
+            </section>
+        </aside>
     </div>
 
     
@@ -38,12 +50,7 @@
     </script>
 
 	<script type="template" id="newsTemplate">
-		<nav>
-                    <ul>
-                    </ul>
-                </nav>
-                
-        <section class="content">
+
             <h4 class="title">
     			<span class="newsName">{title}</span> <button><a href="#">X</a></button>
     		</h4>
@@ -53,13 +60,11 @@
     				{newsList}
     			</ul>
     		</div>
-        </section>
+
 	</script>
     
     <script type="template" id="newsCompanyTemplate">
-        <section class="newsCompany">
                   <input type="checkbox" name="news" value="{company}">{company}<br>
-            </section>
     </script>
 
     </body>
