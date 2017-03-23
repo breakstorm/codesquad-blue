@@ -1,5 +1,5 @@
 function Model(){
-	this.currentIndex = 0;
+	this.currentSubListIndex = 0;
 	this.subList= [];
 	this.unsubList= [];
 	this.jsonData=[
@@ -54,19 +54,24 @@ var ModelObj = {
 		return this.unsubList.length;
 	},
 
-	//index JsonData값 반환
+	//전체 JsonData값 반환
+	getAllJsonData: function(){
+		return this.jsonData;
+	},
+
+	//1개의 JsonData값 반환
 	getJsonData: function(index){
 		return this.jsonData[index];
 	},
 
-	//currentIndex값 반환
-	getCurrentIndex: function(){
-		return this.currentIndex;
+	//currentSubListIndex값 반환
+	getCurrentSubListIndex: function(){
+		return this.currentSubListIndex;
 	},
 
-	//currentIndex값 입력
-	setCurrentIndex: function(index){
-		this.currentIndex = index;
+	//currentSubListIndex값 입력
+	setCurrentSubListIndex: function(index){
+		this.currentSubListIndex = index;
 	},
 
 	setjsonData: function(evt){
@@ -109,7 +114,7 @@ var HeadObj = {
 
 		//해당 오브젝트에 있는 이벤트 선언
 		this.leftrightButtonEvent();
-		this.newslistButtonEvent();
+		this.MyNewslistButtonEvent();
 		this.sublistButtonEvent();
 	},
 
@@ -126,26 +131,26 @@ var HeadObj = {
 			debugger;
 			if(evt.target.className === "left"){
 				console.log("left");
-				//currentIndex을 이용하여 구독리스트 인덱스 가져오기
+				//currentSubListIndex을 이용하여 구독리스트 인덱스 가져오기
 				//전체 길이에서 가져온인덱스-- 넘는지 확인
 				//넘으면 마지막, 안넘으면 --
-				var current = myData.getCurrentIndex();
-				var subList = myData.getAllSubList();
-				var index = subList.indexOf(current);
-				index === 0 ? index = subList.length-1 : index--
-				myData.setCurrentIndex(index);
+				var index = myData.getCurrentSubListIndex();
+				var list = myData.getAllSubList();
+				// var index = list.indexOf(current);
+				index === 0 ? index = list.length-1 : index--
+				myData.setCurrentSubListIndex(index);
 				myArticle.renderArticle(index);
 			}
 			if(evt.target.className === "right"){
 				console.log("right");
-				//currentIndex을 이용하여 구독리스트 인덱스 가져오기
+				//currentSubListIndex을 이용하여 구독리스트 인덱스 가져오기
 				//전체 길이에서 가져온인덱스++ 넘는지 확인
 				//넘으면 0, 안넘으면 ++
-				var current = myData.getCurrentIndex();
-				var subList = myData.getAllSubList();
-				var index = subList.indexOf(current);
-				index === subList.length-1 ? index = 0 : index++
-				myData.setCurrentIndex(index);
+				var index = myData.getCurrentSubListIndex();
+				var list = myData.getAllSubList();
+				// var index = subList.indexOf(current);
+				index === list.length-1 ? index = 0 : index++
+				myData.setCurrentSubListIndex(index);
 				myArticle.renderArticle(index);
 			}
 		});
@@ -153,15 +158,18 @@ var HeadObj = {
 	},
 
 	//구독한 신문 보기 이동
-	newslistButtonEvent: function(){
+	MyNewslistButtonEvent: function(){
 		console.log("newslist");
+		var mine = document.querySelector("#headMine");
+		mine.addEventListener("click", function(evt){
+			myCompany.renderMyNewsCompany();
+		})
 	},
 
 	//신문사 리스트 보기 이동
 	sublistButtonEvent: function(){
 		var mine = document.querySelector("#headTotal");
 		mine.addEventListener("click", function(evt){
-			// console.log("조금후에 개발 하겠습니다.");
 			myCompany.renderNewsCompany();
 			// 테스트완료
 		})
@@ -210,7 +218,7 @@ var NavObj = {
 			leftNav.children[i].addEventListener("click", function(evt){
 				debugger;
 				var index = [].indexOf.call(this.parentNode.children, this);
-				myData.setCurrentIndex(index);
+				myData.setCurrentSubListIndex(index);
 				myArticle.renderArticle(index);
 			});
 		}
@@ -231,7 +239,7 @@ var ArticleObj = {
 		var list = myData.getAllSubList();
 		var index;
 		if(list.length){
-			index = list[0];
+			index = myData.getCurrentSubListIndex();
 			this.renderArticle(index);	
 		}
 
@@ -280,7 +288,7 @@ var ArticleObj = {
 			
 			//예외경우. 
 			if(evt.target.className==="unsub"){
-				var index = myData.getCurrentIndex();
+				var index = myData.getCurrentSubListIndex();
 				var remove = myData.removeSubList(index);
 				myData.addUnsubList(remove.pop());
 				myNav.renderNav();
@@ -289,16 +297,16 @@ var ArticleObj = {
 				//예외경우. 마지막 신문사를 해지 하는 겨우
 				if(list.length === index){
 					index--;
-					myData.setCurrentIndex(index)
+					myData.setCurrentSubListIndex(index)
 				}
 
-				myArticle.renderArticle(list[index]);
+				myArticle.renderArticle(index);
 
 				//구독해지 후. head이벤트 누를시 제대로 작동 되지 않음. 동작하지 않음.
 				//구독해지 후. nav이벤트 누를시 제대로 작동 되지 않음. 기존의 배열로 돌아가게 되어있음
 				//myNav 이벤트 재선언
 				myNav.newsClickEvent();
-				myHead.leftrightButtonEvent();
+				// myHead.leftrightButtonEvent();
 			}
 		})
 		
@@ -336,15 +344,21 @@ var NewsCompany = {
 		debugger;
 		//HTML 스트링 코드를 한개씩 만들어서
 		//해당 base.innerHTML에 삽입한다.
+
+		var head = document.querySelector(".newsCompany");
+		var title = "<p>전체언론사</p><ul></ul>"
+		head.innerHTML = title;
+
+
 		var base = document.querySelector(".newsCompany>ul");
 		var result = "";
 
 
-		//구독배열 불러오기 -> 반복문 -> 해당하는 인덱스의 데이터가져오기
-		var list = myData.getAllSubList();
+		//전체 구독배열 불러오기 -> 반복문 -> 해당하는 인덱스의 데이터가져오기
+		var list = myData.getAllJsonData();
 		list.forEach(function(v,i,a){
-			var tempData = myData.getJsonData(i);
-			result += "<li>" + tempData.title + "</li>";
+			// var tempData = myData.getJsonData(i);
+			result += "<li>" + v.title + "</li>";
 		})
 		base.innerHTML = result;
 
@@ -358,7 +372,26 @@ var NewsCompany = {
 
 	//자신이 구독하고 있는 신문사 렌더링
 	renderMyNewsCompany: function(){
+		//head MY언론사 이벤트 호출
+		debugger;
+		//HTML 스트링 코드를 한개씩 만들어서
+		//해당 base.innerHTML에 삽입한다.
+		var head = document.querySelector(".newsCompany");
+		var title = "<p>my뉴스</p><ul></ul>"
+		head.innerHTML = title;
 
+		var base = document.querySelector(".newsCompany>ul");
+		var result = "";
+
+
+
+		//subList 배열 불러오기 -> 반복문 -> 해당하는 인덱스의 데이터가져오기
+		var list = myData.getAllSubList();
+		list.forEach(function(v,i,a){
+			var tempData = myData.getJsonData(v);
+			result += "<li>" + tempData.title + "</li>";
+		})
+		base.innerHTML = result;
 	}
 
 }
