@@ -1,0 +1,71 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>news</title>
+        <link rel="stylesheet" href="main.css">
+    </head>
+    <body>
+
+    <div class="wrap">
+    	<header>
+    		<ul>
+    			<li id="headTotal">전체언론사</li>
+    			<li id="headMine">my뉴스</li>
+    		</ul>
+    		<div class="btn">
+    			<div class="left"><a class="left" href="#"><</a></div>
+    			<div class="right"><a class="right" href="#">></a></div>
+    		</div>
+    	</header>
+    	<section class="mainArea">
+        	<nav>
+                    <ul>
+                    </ul>
+                </nav>
+            <section class="content">
+            </section>
+    	</section>
+        <aside>
+            <section class="newsCompany">
+                <ul>
+                    
+                </ul>
+            </section>
+        </aside>
+    </div>
+
+    
+    <script type="text/javascript" src="ObserverMain.js?ver=2"></script>
+
+    <script type="template" id="newslistTemplate">
+        <nav>
+                    <ul>
+                    </ul>
+                </nav>
+            <section class="content">
+            </section>
+    </script>
+
+	<script type="template" id="newsTemplate">
+
+            <h4 class="title">
+    			<span class="newsName">{title}</span> <button class="unsub"><a class="unsub" href="#">X</a></button>
+    		</h4>
+    		<div class="newsList">
+    			<img src={imgurl} alt="">
+    			<ul>
+    				{newsList}
+    			</ul>
+    		</div>
+
+	</script>
+    
+    <script type="template" id="newsCompanyTemplate">
+                  <input type="checkbox" name="news" value="{company}">{company}<br>
+    </script>
+
+    </body>
+</html>
