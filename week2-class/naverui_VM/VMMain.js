@@ -6,84 +6,87 @@ DispatcherObj = {
 		this.fnlist = fnlist;
 	},
 
-	run: function(o){
-		this.fnlist[o].call(this);
+	run: function(o, data){
+		debugger;
+		this.fnlist[o.type].call(this, data);
 	}
 }
 var ControllerObj = {
-	DispatcherObj.register({
-		"getAllSubList": function(){
-			return myData.getAllSubList()
-		},
+	init: function(){
+		DispatcherObj.register({
+			getAllSubList: function(){
+				return myData.getAllSubList()
+			},
 
-		//구독배열 삭제
-		removeSubList: function(index){
-			return myData.removeSubList();
-		},
+			//구독배열 삭제
+			removeSubList: function(index){
+				return myData.removeSubList();
+			},
 
-		//구독배열 입력
-		addSubList: function(value){
-			myData.addSubList(value);
-		},
+			//구독배열 입력
+			addSubList: function(value){
+				myData.addSubList(value);
+			},
 
-		//구독배열 길이 반환
-		getSubLength: function(){
-			return myData.getSubLength();
-		},
+			//구독배열 길이 반환
+			getSubLength: function(){
+				return myData.getSubLength();
+			},
 
-		//미구독배열 반환
-		getAllUnsubList: function(){
-			return myData.getAllUnsubList();
-		},
+			//미구독배열 반환
+			getAllUnsubList: function(){
+				return myData.getAllUnsubList();
+			},
 
 
-		//미구독배열 삭제
-		removeUnsubList: function(index){
-			return myData.removeUnsubList(index);
-		},
+			//미구독배열 삭제
+			removeUnsubList: function(index){
+				return myData.removeUnsubList(index);
+			},
 
-		//미구독배열 입력
-		addUnsubList: function(value){
-			myData.addUnsubList(value);
-		},
+			//미구독배열 입력
+			addUnsubList: function(value){
+				myData.addUnsubList(value);
+			},
 
-		//미구독배열 길이 반환
-		getUnsubLength: function(){
-			return myData.getUnsubLength();
-		},
+			//미구독배열 길이 반환
+			getUnsubLength: function(){
+				return myData.getUnsubLength();
+			},
 
-		//전체 JsonData값 반환
-		getAllJsonData: function(){
-			return myData.getAllJsonData();
-		},
+			//전체 JsonData값 반환
+			getAllJsonData: function(){
+				return myData.getAllJsonData();
+			},
 
-		//1개의 JsonData값 반환
-		getJsonData: function(index){
-			return myData.getJsonData(index);
-		},
+			//1개의 JsonData값 반환
+			getJsonData: function(index){
+				return myData.getJsonData(index);
+			},
 
-		//currentSubListIndex값 반환
-		getCurrentSubListIndex: function(){
-			return myData.getCurrentSubListIndex();
-		},
+			//currentSubListIndex값 반환
+			getCurrentSubListIndex: function(){
+				return myData.getCurrentSubListIndex();
+			},
 
-		//currentSubListIndex값 입력
-		setCurrentSubListIndex: function(index){
-			myData.setCurrentSubListIndex(index);
-		},
+			//currentSubListIndex값 입력
+			setCurrentSubListIndex: function(index){
+				myData.setCurrentSubListIndex(index);
+			},
 
-		setjsonData: function(evt){
-			myData.setjsonData(evt);
-		},
+			setjsonData: function(evt){
+				myData.setjsonData(evt);
+			},
 
-		setList: function(){
-			myData.setList();
-		},
+			setList: function(){
+				myData.setList();
+			},
 
-		init: function(){
-			myData.init();
-		}
-	});
+			init: function(){
+				myData.init();
+			}
+		});
+	}	
 }
 
 function Model(){
@@ -193,6 +196,8 @@ var ModelObj = {
 	myNav.init();
 	myArticle.init();
 	myCompany.init();
+	ControllerObj.init();
+
 	}
 }
 
@@ -222,11 +227,14 @@ var HeadObj = {
 				//currentSubListIndex을 이용하여 구독리스트 인덱스 가져오기
 				//전체 길이에서 가져온인덱스-- 넘는지 확인
 				//넘으면 마지막, 안넘으면 --
-				var index = ControllerObj.getCurrentSubListIndex();
-				var list = ControllerObj.getAllSubList();
+				// var index = ControllerObj.getCurrentSubListIndex();
+				var index = DispatcherObj.run({"type":getCurrentSubListIndex})
+				// var list = ControllerObj.getAllSubList();
+				var list = DispatcherObj.run({"type":getAllSubList});
 				// var index = list.indexOf(current);
 				index === 0 ? index = list.length-1 : index--
-				ControllerObj.setCurrentSubListIndex(index);
+				// ControllerObj.setCurrentSubListIndex(index);
+				DispatcherObj.run({"type":setCurrentSubListIndex},index);
 				myArticle.renderArticle(index);
 			}
 			if(evt.target.className === "right"){
@@ -234,11 +242,14 @@ var HeadObj = {
 				//currentSubListIndex을 이용하여 구독리스트 인덱스 가져오기
 				//전체 길이에서 가져온인덱스++ 넘는지 확인
 				//넘으면 0, 안넘으면 ++
-				var index = ControllerObj.getCurrentSubListIndex();
-				var list = ControllerObj.getAllSubList();
+				// var index = ControllerObj.getCurrentSubListIndex();
+				var index = DispatcherObj.run({"type":getCurrentSubListIndex})
+				// var list = ControllerObj.getAllSubList();
+				var list = DispatcherObj.run({"type":getAllSubList});
 				// var index = subList.indexOf(current);
 				index === list.length-1 ? index = 0 : index++
-				ControllerObj.setCurrentSubListIndex(index);
+				// ControllerObj.setCurrentSubListIndex(index);
+				DispatcherObj.run({"type":setCurrentSubListIndex},index);
 				myArticle.renderArticle(index);
 			}
 		});
@@ -285,9 +296,11 @@ var NavObj = {
 
 
 		//구독배열 불러오기 -> 반복문 -> 해당하는 인덱스의 데이터가져오기
-		var list = ControllerObj.getAllSubList();
+		// var list = ControllerObj.getAllSubList();
+		var list = DispatcherObj.run({"type":getAllSubList});
 		list.forEach(function(v,i,a){
-			var tempData = ControllerObj.getJsonData(v);
+			// var tempData = ControllerObj.getJsonData(v);
+			var tempData = DispatcherObj.run({"type":getJsonData}, v);
 			result += "<li>" + tempData.title + "</li>";
 		})
 		base.innerHTML = result;
@@ -300,13 +313,15 @@ var NavObj = {
 		// 해당 리스트 선택시 이벤트 발
 		debugger;
 		var leftNav = document.querySelector(".mainArea>nav>ul")
-		var list = ControllerObj.getAllSubList()
+		// var list = ControllerObj.getAllSubList()
+		var list = DispatcherObj.run({"type":getAllSubList});
 		var leftLength = list.length;
 		for(let i = 0; i < leftLength; i++){
 			leftNav.children[i].addEventListener("click", function(evt){
 				debugger;
 				var index = [].indexOf.call(this.parentNode.children, this);
-				ControllerObj.setCurrentSubListIndex(index);
+				// ControllerObj.setCurrentSubListIndex(index);
+				DispatcherObj.run({"type":setCurrentSubListIndex},index);
 				myArticle.renderArticle(index);
 			});
 		}
@@ -324,10 +339,12 @@ var NavObj = {
 var ArticleObj = {
 	init: function(){
 		debugger;
-		var list = ControllerObj.getAllSubList();
+		// var list = ControllerObj.getAllSubList();
+		var list = DispatcherObj.run({"type":getAllSubList});
 		var index;
 		if(list.length){
-			index = ControllerObj.getCurrentSubListIndex();
+			// index = ControllerObj.getCurrentSubListIndex();
+			index = DispatcherObj.run({"type":getCurrentSubListIndex});
 			this.renderArticle(index);	
 		}
 
@@ -348,8 +365,10 @@ var ArticleObj = {
 		base.innerHTML = "";
 		this.setNewsTemplate();
 		var baseHTML = base.innerHTML;
-		var list = ControllerObj.getAllSubList();
-		var data = ControllerObj.getJsonData(list[index]);
+		// var list = ControllerObj.getAllSubList();
+		// var data = ControllerObj.getJsonData(list[index]);
+		var list = DispatcherObj.run({"type":getAllSubList});
+		var data = DispatcherObj.run({"type":getJsonData}, list[index]);
 		var resultArticle = "";
 
 		data.newslist.forEach(function(v,i,a){
@@ -376,16 +395,21 @@ var ArticleObj = {
 			
 			//예외경우. 
 			if(evt.target.className==="unsub"){
-				var index = ControllerObj.getCurrentSubListIndex();
-				var remove = ControllerObj.removeSubList(index);
-				ControllerObj.addUnsubList(remove.pop());
+				// var index = ControllerObj.getCurrentSubListIndex();
+				// var remove = ControllerObj.removeSubList(index);
+				// ControllerObj.addUnsubList(remove.pop());
+				var index = DispatcherObj.run({"type":getCurrentSubListIndex});
+				var remove = DispatcherObj.run({"type":removeSubList},index);
+				DispatcherObj.run({"type":addUnsubList},remove.pop());
 				myNav.renderNav();
-				var list = ControllerObj.getAllSubList();
+				// var list = ControllerObj.getAllSubList();
+				var list = DispatcherObj.run({"type":getAllSubList});
 				
 				//예외경우. 마지막 신문사를 해지 하는 겨우
 				if(list.length === index){
 					index--;
-					ControllerObj.setCurrentSubListIndex(index)
+					// ControllerObj.setCurrentSubListIndex(index)
+					DispatcherObj.run({"type":setCurrentSubListIndex},index);
 				}
 
 				myArticle.renderArticle(index);
@@ -443,7 +467,8 @@ var NewsCompany = {
 
 
 		//전체 구독배열 불러오기 -> 반복문 -> 해당하는 인덱스의 데이터가져오기
-		var list = ControllerObj.getAllJsonData();
+		// var list = ControllerObj.getAllJsonData();
+		var list = DispatcherObj.run({"type":getAllJsonData});
 		list.forEach(function(v,i,a){
 			// var tempData = myData.getJsonData(i);
 			result += "<li>" + v.title + "</li>";
@@ -474,9 +499,11 @@ var NewsCompany = {
 
 
 		//subList 배열 불러오기 -> 반복문 -> 해당하는 인덱스의 데이터가져오기
-		var list = ControllerObj.getAllSubList();
+		// var list = ControllerObj.getAllSubList();
+		var list = DispatcherObj.run({"type":getAllSubList});
 		list.forEach(function(v,i,a){
-			var tempData = ControllerObj.getJsonData(v);
+			// var tempData = ControllerObj.getJsonData(v);
+			var tempData = DispatcherObj.run({"type":getJsonData},v);
 			result += "<li>" + tempData.title + "</li>";
 		})
 		base.innerHTML = result;
@@ -510,7 +537,7 @@ document.addEventListener("DOMContentLoaded", function(evt){
 	myCompany = Object.create(NewsCompany);
 	
 	//Ajax 호출
-	UtilObj.runAjax(url, ControllerObj.setjsonData.bind(myData));
-	
+	UtilObj.runAjax(url, myData.setjsonData.bind(myData));//DispatcherObj.run({"type":setjsonData})); //
+		
 
 })
