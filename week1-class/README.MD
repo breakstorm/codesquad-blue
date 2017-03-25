@@ -1,4 +1,6 @@
 # 코드스쿼드 1주차 교육 내용 정리 
+  - [코드스쿼드 1주차 교육 내용](https://github.com/breakstorm/codesquad-blue/tree/master/week1-class/README.MD)
+  - [코드스쿼드 2주차 교육 내용](https://github.com/breakstorm/codesquad-blue/tree/master/week2-class/README.MD)
 
 ---
 
@@ -40,6 +42,7 @@
    ## 3.18(토)
      ### AWSome DAY 세미나 참석
       - EC2, EBS, VPC, IAM, RDS  
+      - [AWSomeDay 행사 참석 리뷰](https://github.com/breakstorm/codesquad-blue/tree/master/week2-class/AWSomeDay.MD)
 
 ---
 
