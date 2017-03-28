@@ -8,7 +8,7 @@
 # 교육내용 
 ## 3.27(월)
 #### 1. 미니 팀프로젝트
-- 목표 : 미니 SNS(인스타 북)
+##### 목표 : 미니 SNS(인스타 북)
 - [팀룰](https://github.com/DongHyunKims/mini-sns-dev/wiki/Mini-SNS-Team-Rule) 사용도구, 팀룰, 코드컨벤션, 커밋룰 채택 
 - 3.28(화) 아침까지 FaceBook, Instagram 첫페이지 기능분석 
 - 소감1 : 글을 작성하는 곳이 많아지면 많아질수록 규칙이 까다로워지고, 코딩 이외의 시간이 많이 필요해 진다. (적정 시간을 찾는 것이 이번 프로젝트에서 목표로 해야 할 것 같다.) 
@@ -19,6 +19,7 @@
  
 ## 3.28(화)
 #### 1. 미니 팀프로젝트 (미니SNS - 인스타북)
+##### 목표 : 미니 SNS(인스타 북)
 - 오늘한일 : 15분 데일리 미팅, 백로그 작성, GIThub 세팅, GIThub 프로젝트 페이지 변경, GIThub 이슈 페이지 변경 (모두다 매일 해야 하는 일)
 - 내일할일 : git 커밋규칙 확인, 백로그 기반 일정 산정, 사전 필요지식 정리
 - 소감1 : 어제보다는 프로젝트 달성을 위해서 전진한 느낌, 완벽한 팀셋업을 하기 보다는 완벽에 가까워 지기 위하여 노력하는 것이 중요한 자세라고 생각된다.
@@ -27,7 +28,8 @@
 #### 2. honux : git workflow 강의(gitflow, github flow)
 - [참고사이트1](http://danielkummer.github.io/git-flow-cheatsheet/index.ko_KR.html) / [참고사이트2](https://guides.github.com/introduction/flow/) 
 
-#### 3. jk : SCRUM이란? > 팀과 같이 성장하도록 프로세스
+#### 3. jk : SCRUM이란? > 팀과 같이 성장하도록 프로세스 
+- [참고사이트](https://www.slideshare.net/UnyongChoi1/slamdunk-scrum)
 
 ## 3.29(수)
 #### 
