@@ -2,6 +2,7 @@
   - [코드스쿼드 1주차 교육 내용](https://github.com/breakstorm/codesquad-blue/tree/master/week1-class/README.MD)
   - [코드스쿼드 2주차 교육 내용](https://github.com/breakstorm/codesquad-blue/tree/master/week2-class/README.MD)
   - [코드스쿼드 3주차 교육 내용](https://github.com/breakstorm/codesquad-blue/tree/master/week3-class/README.MD)
+  - [코드스쿼드 4주차 교육 내용](https://github.com/breakstorm/codesquad-blue/tree/master/week4-class/README.MD)
 
 ---
 
@@ -70,13 +71,19 @@
 **
 
 ## 3.31(금)
-#### 
+#### 1. 미니 팀프로젝트 (미니SNS - 인스타북)
+##### 목표 : 미니 SNS(인스타 북)
+- 매일하는일 : 15분 데일리 아침저녁 미팅, GIThub 관리
+- 오늘한일 : 데모시연, 스크럼 일주일 회고 및 차주 마일스톤 수립
+- 내일할일 : NODE, DB강의 듣기(~일요일)
+- 소감1 : 조가 하는 일을 피드백 할 수 있고, 조원 모두가 더 발전해 가는 것을 느낄수 있는 수업 이였습니다.
 
 ## 4.01(토)
 #### 
 
 ## 4.02(일)
-#### 
+#### NODE, DB강의 듣기
+- 아래에 NODE 명령어 정리
  
    
 ---
@@ -104,3 +111,73 @@
 2-2. 유동형그리드 : em, rem, % 을 사용하여 변화에 따라 유동적으로 변경된다. 
 
 3. 특징 : 하나의 웹페이지로 여러가지의 디바이스를 지원한다. <-> 웹이 무거워 진다.
+
+#### npm 명령어
+ - npm init 
+ - npm install express --save 
+ - npm install ejs --save
+ - npm instasll express-bodyparser
+
+#### express 명령어
+ - app = express() //선언하기 
+ - apth = require('path');
+ - main = require('./router/main');
+ - app.use(static('/static')); //static파일 설정
+ - app.get/post //요청받기
+ - app.listen //앱 실행하기
+ - app.send //메세지 전달하기
+ - app.sendFile //다른 파일 부르기
+ - app.render //ejs 템플릿 사용
+ - app.set /ejs 설정 
+ - app.use("/main", main) //라우터 경로 등록
+ - 
+
+#### bodyParser 명령어
+ - app.use(bodyParser.json());
+ - app.use(bodyParser.urlencoded({extended:true})) 
+
+#### javascript ajax 명령어
+ - var xhr = new XHLHttpRequest();
+ - xhr.open('POST', url);
+ - xhr.setRequestHeader('Content-Type', "application/json");
+ - xhr.send(data);
+ - xhr.addEventListener('load', function(){}) 
+
+#### mysql on mac 삭제 명령어  
+ - ps -ax | grep mysql
+ - stop and kill any MySQL processes
+ - brew remove mysql
+ - brew cleanup
+ - sudo rm /usr/local/mysql
+ - sudo rm -rf /usr/local/var/mysql
+ - sudo rm -rf /usr/local/mysql*
+ - sudo rm ~/Library/LaunchAgents/homebrew.mxcl.mysql.plist
+ - sudo rm -rf /Library/StartupItems/MySQLCOM
+ - sudo rm -rf /Library/PreferencePanes/My*
+ - launchctl unload -w ~/Library/LaunchAgents/homebrew.mxcl.mysql.plist
+ - edit /etc/hostconfig and remove the line MYSQLCOM=-YES-
+ - rm -rf ~/Library/PreferencePanes/My*
+ - sudo rm -rf /Library/Receipts/mysql*
+ - sudo rm -rf /Library/Receipts/MySQL*
+ - sudo rm -rf /private/var/db/receipts/*mysql*
+ - restart your computer just to ensure any MySQL processes are killed
+ - try to run mysql, it shouldn't work 
+
+#### mysql on mac 설치 명령어 
+ - brew doctor and fix any errors
+ - brew update
+ - brew install mysql
+ - unset TMPDIR
+ - mysql_install_db --verbose --user=`whoami` --basedir="$(brew --prefix mysql)" --datadir=/usr/local/var/mysql --tmpdir=/tmp
+ - mysql.server start
+ - run the commands Brew suggests, add MySQL to launchctl so it automatically launches at startup 
+
+#### mysql connection on express 
+ - [링크](https://expressjs.com/en/guide/database-integration.html) 
+
+#### mysql using express 
+ - var mysql = require('express');
+ - connection = mysql.createConnection({}); 
+ - connection.connect();
+
+# dune과 promise 패턴
