@@ -1,4 +1,4 @@
-# 코드스쿼드 2주차 교육 내용 정리 
+# 코드스쿼드 3주차 교육 내용 정리 
   - [코드스쿼드 1주차 교육 내용](https://github.com/breakstorm/codesquad-blue/tree/master/week1-class/README.MD)
   - [코드스쿼드 2주차 교육 내용](https://github.com/breakstorm/codesquad-blue/tree/master/week2-class/README.MD)
   - [코드스쿼드 3주차 교육 내용](https://github.com/breakstorm/codesquad-blue/tree/master/week3-class/README.MD)
