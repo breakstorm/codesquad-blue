@@ -97,7 +97,32 @@
  - react / javascript
 
 ## 4.9(일)
-#### 
+#### react개론공부 
+- 오늘의 정리 : react는 객체간의 흐름을 효율적으로 제어하기 위하여 역할을 두고서 플로우를 정리하게 하는 프레임워크. 
+- 다음번에 해야할 일 : 나머지 용량을 정리, 튜토리얼 실습.
+
+- 나오는 용어 
+  -- flux : 개발패턴, (action creator, store, view )
+  -- redux :  (flux + reduer + binding + root component + )
+  -- react : 
+  -- 핫리로딩 : 상태값을 그대로 가져오는 기술
+  -- 보일러플레이트 : 
+  -- 상태값 : 
+  -- 타임 트래벌 디버깅 : 상태값을 저장하는 기술
+
+
+- 왜 생겼을까? 
+  1. notification버그 : 알림이 왔지만 아무것도 없었다. 
+-- 문제원인 : 시스템플로우에서 Model-Veiw + Aync 문제가 겹치면서 예측을 할 수 없다.
+![그림1](http://bestalign.github.io/2015/10/06/cartoon-guide-to-flux/04.png)
+
+-- 해결방법 : 시스템플로우 획일화 시키기.
+![그림2](http://bestalign.github.io/2015/10/06/cartoon-guide-to-flux/05.png)
+
+  2. flux문제점 : 
+-- 객체안의 변수와 함수가 같이 있어서 문제 야기. 
+-- 여러 변수의 상태값을 1개의 변수에 저장시 문제 야기. (동시성) 
+-- 다른 라이브러리 사용이 어려움. (디스패쳐와 스토어를 변경해주어야 한다.) 
    
 ---
 
