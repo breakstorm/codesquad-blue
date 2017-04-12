@@ -22,5 +22,11 @@ $ git tag -d R201206081844
 remote에 있는 tag 삭제
 $ git push origin :tags/R201206261146
 
+--- 
+## reset과 rebase 명령 
 
+### $git rebase [옮겨야할 커밋위치/브랜치 이름]
+#### 자신의 연관된 커밋들을 지정한 곳으로 옮기는 명령어 
 
+### $git reset [옮겨야할 커밋위치/브랜치 이름] 
+#### 자신 head를 지정한 곳으로 옮기는 명령어 

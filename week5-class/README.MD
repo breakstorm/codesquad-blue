@@ -44,10 +44,15 @@
 
 
 ---
-
  
 ## 4.11(화)
-
+#### 1. React 학습
+- [React공식문서 학습](https://facebook.github.io/react/docs/handling-events.html)
+- 모든 view들은 컴포넌트 단위이고 component를 추상화 하여 사용한다. (이로 인하여 만들어진 컴포넌트를 추상화 하여 재사용 할 수도 있다.)
+- 컴포넌트에 전달하는 값을 props 라고 한다. 
+- state는 변화하는 값들을 저장해 놓은 공간이다. (이를 이용하여 이벤트 처리를 하기도 한다.) 
+- 이벤트들은 constructor에 바인딩을 해야 사용을 할 수 있다. 
+- didMount / WillUnmount 는 렌더링을 하기전/후에 실행하는 함수이다. (화면에 보여지는 값들을 가공할때 사용한다.) 
 ---
 
 ## 4.12(수)
