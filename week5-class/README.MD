@@ -74,6 +74,8 @@
 ---
 
 ## 4.13(목)
+#### 없음.
+
 
 ---
 
@@ -82,12 +84,63 @@
 ---
 
 ## 4.15(토)
+#### javascript closure 정리 
+- MDN에서 정의 
+Closures are functions that refer to independent (free) variables (variables that are used locally, but defined in an enclosing scope). In other words, these functions 'remember' the environment in which they were created. 
+의문점 : 무의존 변수, 생성이된 환경을 기억?
+
+lexical scoping
+```javascript
+function init() {
+  var name = 'Mozilla'; // name is a local variable created by init
+  function displayName() { // displayName() is the inner function, a closure
+    alert(name); // use variable declared in the parent function    
+  }
+  displayName();    
+}
+init();
+```
+
+closure = combination lexical scope + funciton
+```javascript
+function makeFunc() {
+  var name = 'Mozilla';
+  function displayName() {
+    alert(name);
+  }
+  return displayName;
+}
+
+var myFunc = makeFunc();
+myFunc();
+```
+
+- closure 왜 발생하였는가?
+변수는 범위는 함수단위이다. 'name'이라는 변수는 'init'함수가 종룔되면 사라지는데, 'display'함수가 실행될때 사라진 'name'변수를 호출한다. 여기서 문제가 발생한다.
+정의 : 유효한 하지 않은 변수를 가리키는 것을 이르킴. 자신의 부모스코프의 변수를 사용하는 것을 이르킴.
+
+
+- 어떻게 사용해야 하는가?
+- ES6에서 변환된 점은 없는가?
+- 용어정리 
+  1. lexical scoping
+  2. nested function
+- 선언을 했을때 자신의 스코핑이 결정되는 특성 : lexical scope
+
+
+#### 호이스팅 Hoisting
+- 컴파일 phase + exec phase 
+- variable, function 둘다 적용
+- 블럭스코프 안에 펑션은 피해라.
+- 우선순위 펑션 > 변수
 
 ---
 
 ## 4.16(일)
-#### 
+#### 본프로젝트 DB설계 
+- 좋아요기능 DB설계(http://www.9lessons.info/2013/05/facebook-like-system-with-jquery-mysql.html) 
+- 
    
 ---
 
-# 추가 공부 내용 정리 
+# 추가 공부 내용 정리  
