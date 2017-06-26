@@ -5,6 +5,9 @@
 *.pptx
 *.xls
 *.xlsx
+*.key
+*.pem
+*.csv
 
 # OS generated files #
 ######################
